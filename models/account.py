@@ -7,9 +7,9 @@ class Account:
         self.id = id
     
     def available_funds(self):
-        return self.credit_limit + self.balance
+        return (0 - self.credit_limit) + self.balance
     
-    def to_string_funds(self):
+    def to_string_funds(self): #
         if self.available_funds() < 100:
             return f"{self.available_funds()}p"
         else:

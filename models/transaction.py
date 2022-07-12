@@ -17,6 +17,10 @@ class Transaction:
         else:
             return f"£{self.amount/100:.2f}"
     
+    def to_pence(amount):
+        return amount * 100
+
+    
     def formatted_date(self):
         months_list = [
             'January',

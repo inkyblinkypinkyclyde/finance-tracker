@@ -1,0 +1,58 @@
+body {
+    display: grid;
+    height: 100vh;
+    background-color: rgb(194, 231, 221);
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+ul {
+    list-style: none;
+    text-transform: uppercase;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex--row {
+    flex-direction: row;
+}
+
+aside {
+    padding: 2rem;
+}
+
+header {
+    background-color: rgb(123, 209, 146);
+    padding: 2rem;
+}
+
+footer {
+    background-color: rgb(123, 209, 146);
+    padding: 2rem;
+}
+
+section {
+    padding: 2rem;
+}
+
+body>div>div {
+    display: grid;
+    grid-template-columns:
+        minmax(150px, 25%) 1fr;
+    padding: 0;
+    margin: 0;
+}
+
+#dashboard div {
+    display: flex;
+    flex-direction: row;
+}
+
+
+
+/* .ex4 .parent {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+} */

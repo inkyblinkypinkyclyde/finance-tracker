@@ -1,0 +1,33 @@
+{%extends 'base.html'%}
+{%block content%}
+<h1>Dashboard</h1>
+
+<div class="dashboard">
+    <section>
+        Accounts
+        {% for account in accounts%}
+        <div>
+            <div>
+                <h3>
+                    {{account.name}}
+                </h3>
+            </div>
+            <div>
+                Balance: {{account.to_string_balance()}}
+            </div>
+            <div>
+                Available funds: {{account.to_string_funds()}}
+            </div>
+        </div>
+        <br />
+        {%endfor%}
+    </section>
+    <section>
+        Pending transactions
+    </section>
+    <section>
+        All transactions
+    </section>
+</div>
+
+{%endblock%}
