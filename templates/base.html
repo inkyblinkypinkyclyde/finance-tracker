@@ -26,7 +26,7 @@
                 </ul>
                 <ul>
                     <li>
-                        <a href="/accounts">All accounts</a>
+                        <a href="/accounts/all">All accounts</a>
                     </li>
                     <li>
                         <a href="/accounts/new">Add account</a>
@@ -34,7 +34,15 @@
                 </ul>
                 <ul>
                     <li>
-                        <a href="/transactions">All transactions</a>
+                        <a href="/merchants/all">All merchants</a>
+                    </li>
+                    <li>
+                        <a href="/merchants/new">Add merchants</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <a href="/transactions/all">All transactions</a>
                     </li>
                     <li>
                         <a href="/transactions/new">Add transaction</a>
@@ -55,6 +63,9 @@
                                 <td>From account:</td>
                                 <td>
                                     <select name="account_id_out" id="account">
+                                        {% for account in accounts %}
+                                        <option value="{{account.id}}">{{account.name}}</option>
+                                        {% endfor %}
                                     </select>
                                 </td>
                             </tr>
@@ -62,7 +73,7 @@
                                 <td>To account:</td>
                                 <td>
                                     <select name="account_id_in" id="account">
-                                        {% for account in all_accounts %}
+                                        {% for account in accounts %}
                                         <option value="{{account.id}}">{{account.name}}</option>
                                         {% endfor %}
                                     </select>

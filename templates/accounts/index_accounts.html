@@ -1,0 +1,24 @@
+{%extends 'base.html'%}
+{%block content%}
+<h1>Accounts</h1>
+
+<div class="accounts">
+    {% for account in accounts%}
+    <div>
+        <div>
+            <h3>
+                {{account.name}}
+            </h3>
+        </div>
+        <div>
+            Balance: {{account.to_string_balance()}}
+        </div>
+        <div>
+            Available funds: {{account.to_string_funds()}}
+        </div>
+    </div>
+    <br />
+    {%endfor%}
+</div>
+
+{%endblock%}

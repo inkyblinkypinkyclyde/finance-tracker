@@ -7,6 +7,7 @@ def save(transaction):
     values = [transaction.amount, transaction.date, transaction.description, transaction.into_account_id, transaction.out_of_account_id, transaction.is_visible]
     results = run_sql(sql, values)
     id = results[0]['id']
+    breakpoint()
     transaction.id = id
     return transaction
 
@@ -43,3 +44,10 @@ def update(transaction):
     sql = 'UPDATE transactions SET (amount, date, description, account_id, merchant_id) = (%s, %s, %s, %s, %s, %s) WHERE id = %s'
     values = [transaction.amount, transaction.date, transaction.description, transaction.into_account_id, transaction.out_of_account_id, transaction.is_visible, transaction.id]
     run_sql(sql, values)
+
+def get_transaction_up_to_date_and_including(date):
+    sql = "SELECT * FROM transactions WHERE date <= %s"
+    values = [date]
+    return run_sql(sql, values)
+
+

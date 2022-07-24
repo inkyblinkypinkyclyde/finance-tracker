@@ -1,0 +1,37 @@
+{%extends 'base.html'%}
+{%block content%}
+
+<h1>All transactions</h1>
+
+{% for account in accounts %}
+<div>
+    <h3>{{account.name}}</h3>
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Merchant</th>
+            <th>Amount</th>
+            <th>Description</th>
+        </tr>
+        {% for transaction in transactions %}
+        {% if transaction.out_of_account_id == account.id %}
+        <tr>
+            <td>{{transaction.date}}</td>
+            <td>
+                {%for merchant in merchants%}
+                {%if merchant.id == transaction.into_account_id%}
+                {{merchant.name}}
+                {%endif%}
+                {%endfor%}
+            </td>
+            <td>{{transaction.formatted_amount()}}</td>
+            <td>{{transaction.description}}</td>
+        </tr>
+        {%endif%}
+        {%endfor%}
+    </table>
+</div>
+
+{%endfor%}
+
+{%endblock%}

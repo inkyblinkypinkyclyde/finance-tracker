@@ -1,0 +1,25 @@
+{%extends 'base.html'%}
+{%block content%}
+<section>
+    <h1> Add New Account</h1>
+    <form action="/accounts/new" method="post">
+        <table>
+            <tr>
+                <td>Name: </td>
+                <td><input type="text" name="name"></td>
+            </tr>
+            <tr>
+                <td>Balance: </td>
+                <td><input type="number" name="balance" value="0"></td>
+            </tr>
+            <tr>
+                <td>Overdraft:</td>
+                <td><input type="number" name="credit_limit" value="0"></td>
+            </tr>
+            <tr>
+                <td><input type="submit"></td>
+            </tr>
+        </table>
+    </form>
+</section>
+{%endblock%}

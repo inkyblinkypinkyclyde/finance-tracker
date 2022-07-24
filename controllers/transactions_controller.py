@@ -12,8 +12,9 @@ transactions_blueprint = Blueprint("transactions", __name__)
 @transactions_blueprint.route('/transactions/all', methods=['GET'])
 def transactions_all():
     transactions = transaction_repository.select_all()
-    accounts = account_repository.select_all()
-    return render_template('/transactions/index.html', transactions=transactions, accounts=accounts)
+    accounts = account_repository.select_all_accounts()
+    merchants = account_repository.select_all_merchants()
+    return render_template('/transactions/index.html', transactions=transactions, accounts=accounts, merchants=merchants)
 
 #add new
 @transactions_blueprint.route('/transactions/new', methods=['GET'])
@@ -33,11 +34,7 @@ def transactions_new_post():
     transaction_repository.save(transaction)
     return redirect('/transactions/new')
 
-
-    
-
 #edit
-
 
 #delete
 

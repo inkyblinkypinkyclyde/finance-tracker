@@ -1,0 +1,22 @@
+{%extends 'base.html'%}
+{%block content%}
+<h1>Merchants</h1>
+
+<div class="merchants">
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Balance</th>
+            <th>Actions</th>
+        </tr>
+        {% for merchant in merchants%}
+        <tr>
+            <td>{{merchant.name}}</td>
+            <td>{{merchant.to_string_balance()}}</td>
+            <td><a href="">EDIT</a></td>
+        </tr>
+        {%endfor%}
+    </table>
+</div>
+
+{%endblock%}

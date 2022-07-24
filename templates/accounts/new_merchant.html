@@ -1,0 +1,17 @@
+{%extends 'base.html'%}
+{%block content%}
+<section>
+    <h1> Add New Account</h1>
+    <form action="/merchants/new" method="post">
+        <table>
+            <tr>
+                <td>Name: </td>
+                <td><input type="text" name="name"></td>
+            </tr>
+            <tr>
+                <td><input type="submit"></td>
+            </tr>
+        </table>
+    </form>
+</section>
+{%endblock%}

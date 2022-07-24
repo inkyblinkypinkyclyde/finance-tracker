@@ -20,6 +20,16 @@ class Transaction:
     def to_pence(amount):
         return amount * 100
 
+    def to_pounds(amount):
+        return amount/100 
+    
+    def return_merchant(self, merchants):
+        for merchant in merchants:
+            if merchant.id == self.into_account_id:
+                return merchant.name
+            else:
+                return 'error'
+
     
     def formatted_date(self):
         months_list = [
