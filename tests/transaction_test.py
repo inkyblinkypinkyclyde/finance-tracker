@@ -62,3 +62,5 @@ class TestTransaction(unittest.TestCase):
 
     def test_returns_date_formatted_24(self):
         self.assertEqual("24th June 2022", self.transaction24.formatted_date())
+
+

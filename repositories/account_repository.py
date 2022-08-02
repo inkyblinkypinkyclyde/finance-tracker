@@ -72,15 +72,20 @@ def get_balance_by_date(date, account_id):
     transactions = transaction_repository.get_transaction_up_to_date_and_including(date)
     balance = get_account_balance(account_id)
     for transaction in transactions:
-        # breakpoint()
         if transaction['out_of_account_id'] == account_id:
             balance = balance + transaction['amount']
     return balance
 
 def return_all_balances_by_date(date):
     accounts = select_all_accounts()
+    all_transactions = transaction_repository.get_transaction_up_to_date_and_including(date)
     for account in accounts:
-        account.balance = get_balance_by_date(date, account.id)
+        transactions_for_each_account = []
+        for transaction in all_transactions:
+            # print(transaction)
+            if transaction['out_of_account_id'] == account.id:
+                transactions_for_each_account.append(transaction)
+        account.update_balance(transactions_for_each_account)
     return accounts
 
 

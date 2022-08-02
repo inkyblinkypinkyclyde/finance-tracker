@@ -68,3 +68,4 @@ class Transaction:
         entire_date_formatted = f'{int(self.date[8:10])}{date_string_suffix} {month_string} {self.date[0:4]}'
         return entire_date_formatted
 
+
