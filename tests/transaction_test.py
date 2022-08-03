@@ -1,9 +1,12 @@
 import unittest
+from datetime import date
 
 from models.transaction import Transaction
 
 class TestTransaction(unittest.TestCase):
     def setUp(self):
+        self.transaction0 = Transaction(0, "2022-08-03", "date", 1, 2, True)
+        self.transaction10 = Transaction(0, "2022-08-04", "date", 1, 2, True)
         self.transaction1 = Transaction(10000, "2022-06-01", "Chairs", 1, 2, True)
         self.transaction2 = Transaction(20, "2022-06-02", "Chairs", 1, 2, True)
         self.transaction3 = Transaction(30, "2022-06-03", "Chairs", 1, 2, True)
@@ -62,3 +65,14 @@ class TestTransaction(unittest.TestCase):
 
     def test_returns_date_formatted_24(self):
         self.assertEqual("24th June 2022", self.transaction24.formatted_date())
+
+    def test_can_compare_dates_when_in_present(self):
+        self.assertEqual(True, self.transaction0.is_in_past())
+
+    def test_can_compare_dates_when_in_future(self):
+        self.assertEqual(False, self.transaction10.is_in_past())
+
+    def test_can_compare_dates_when_in_past(self):
+        self.assertEqual(True, self.transaction1.is_in_past())
+
+

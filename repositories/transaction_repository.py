@@ -7,7 +7,6 @@ def save(transaction):
     values = [transaction.amount, transaction.date, transaction.description, transaction.into_account_id, transaction.out_of_account_id, transaction.is_visible]
     results = run_sql(sql, values)
     id = results[0]['id']
-    breakpoint()
     transaction.id = id
     return transaction
 

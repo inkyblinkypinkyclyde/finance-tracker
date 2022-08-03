@@ -17,7 +17,6 @@ app.register_blueprint(transactions_blueprint)
 @app.route('/')
 def home():
     accounts = account_repository.return_all_balances_by_date(date.today())
-    # breakpoint()
     return render_template('home.html', accounts = accounts)
 
 
