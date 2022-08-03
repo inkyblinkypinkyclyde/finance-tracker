@@ -35,6 +35,6 @@ class Account:
         return balance
 
     def update_balance(self, transactions):
-        self.balance = self.balance + self.get_total_of_transactions(transactions)
+        self.balance = self.balance - self.get_total_of_transactions(transactions)
 
     # def update_all_balances(self, transaction)

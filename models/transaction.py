@@ -1,5 +1,6 @@
 from calendar import month_abbr
-
+from datetime import date
+from datetime import datetime
 
 class Transaction:
     def __init__(self, amount, date, description, into_account_id, out_of_account_id, is_visible, id=None):
@@ -30,7 +31,13 @@ class Transaction:
             else:
                 return 'error'
 
+    def today():
+        return date.today()
     
+    def yesterday():
+        return date.today() - 1
+        
+
     def formatted_date(self):
         months_list = [
             'January',
@@ -67,5 +74,14 @@ class Transaction:
             date_string_suffix = 'th'
         entire_date_formatted = f'{int(self.date[8:10])}{date_string_suffix} {month_string} {self.date[0:4]}'
         return entire_date_formatted
+    
+    def is_in_past(self):
+        htmlDate = self.date
+        dateTokens = htmlDate.split('-')
+        pythonDate = date(int(dateTokens[0]), int(dateTokens[1]), int(dateTokens[2]))
+        if  (pythonDate <= date.today()):
+            return True
+        else:
+            return False
 
 

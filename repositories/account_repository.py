@@ -58,7 +58,7 @@ def delete(id):
     run_sql(sql, values)
 
 def update(account):
-    sql = 'UPDATE accounts SET (name, description, balance) = (%s, %s, %s, %s) WHERE id = %s'
+    sql = 'UPDATE accounts SET (name, balance, credit_limit, is_account) = (%s, %s, %s, %s) WHERE id = %s'
     values = [account.name, account.balance, account.credit_limit, account.is_account, account.id]
     run_sql(sql, values)
 
@@ -82,7 +82,6 @@ def return_all_balances_by_date(date):
     for account in accounts:
         transactions_for_each_account = []
         for transaction in all_transactions:
-            # print(transaction)
             if transaction['out_of_account_id'] == account.id:
                 transactions_for_each_account.append(transaction)
         account.update_balance(transactions_for_each_account)
