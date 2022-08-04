@@ -51,11 +51,14 @@ def transactions_new_post():
     merchant = account_repository.select(int(request.form['merchant_id']))
     transaction = Transaction(amount, date_of_transaction, description, merchant.id, account.id, True)
     if (transaction.is_in_past()):
-        new_balance = account.balance - amount
-        new_account_data = Account(account.name, new_balance, account.credit_limit, account.is_account, account.id)
+        new_balance_account = account.balance - amount
+        new_balance_merchant = merchant.balance + amount
+        new_account_data_account = Account(account.name, new_balance_account, account.credit_limit, account.is_account, account.id)
+        new_account_data_merchant = Account(merchant.name, new_balance_merchant, merchant.credit_limit, merchant.is_account, merchant.id)
+        account_repository.update(new_account_data_account)
+        account_repository.update(new_account_data_merchant)
+        transaction_repository.save(transaction)
         # breakpoint()
-        account_repository.update(new_account_data)
-    transaction_repository.save(transaction)
     return redirect('/transactions/new')
 
 #edit
