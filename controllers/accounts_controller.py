@@ -94,9 +94,9 @@ def view_future_balances():
 def add_balance_transfer():
     amount = Transaction.to_pence(int(request.form['amount']))
     date = request.form['date']
-    description = "Balance transfer"
-    into_account = account_repository.select(int(request.form['account_id_out']))
-    out_of_account = account_repository.select(int(request.form['account_id_in']))
+    out_of_account = account_repository.select(int(request.form['account_id_out']))
+    into_account  = account_repository.select(int(request.form['account_id_in']))
+    description = f'out of {out_of_account.name} into {into_account.name}'
     transaction = Transaction(amount, date, description, into_account.id, out_of_account.id, True)
     transaction_repository.save(transaction)
     return redirect('/future')
