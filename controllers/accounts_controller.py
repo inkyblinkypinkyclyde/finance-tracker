@@ -94,11 +94,19 @@ def view_future_balances():
 def add_balance_transfer():
     amount = Transaction.to_pence(int(request.form['amount']))
     date = request.form['date']
-    out_of_account = account_repository.select(int(request.form['account_id_out']))
-    into_account  = account_repository.select(int(request.form['account_id_in']))
-    description = f'out of {out_of_account.name} into {into_account.name}'
-    transaction = Transaction(amount, date, description, into_account.id, out_of_account.id, True)
-    transaction_repository.save(transaction)
+    sender = account_repository.select(int(request.form['account_id_out']))
+    reciever  = account_repository.select(int(request.form['account_id_in']))
+    description = f'out of {sender.name} into {reciever.name}'
+    transaction = Transaction(amount, date, description, sender.id, reciever.id, True)
+    if (transaction.is_in_past()):
+        new_balance_sender = sender.balance - amount
+        new_balance_reciever = reciever.balance + amount
+        new_account_data_sender = Account(sender.name, new_balance_sender, sender.credit_limit, sender.is_account, sender.id)
+        new_account_data_reciever = Account(reciever.name, new_balance_reciever, reciever.credit_limit, reciever.is_account, reciever.id)
+        account_repository.update(new_account_data_sender)
+        account_repository.update(new_account_data_reciever)
+        breakpoint()
+        transaction_repository.save(transaction)
     return redirect('/future')
 
 
