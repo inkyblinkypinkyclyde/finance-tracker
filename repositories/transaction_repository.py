@@ -12,7 +12,7 @@ def save(transaction):
 
 def select_all():
     transactions = []
-    sql = "SELECT * FROM transactions"
+    sql = "SELECT * FROM transactions ORDER BY date"
     results = run_sql(sql)
     for row in results:
         transaction = Transaction(row['amount'], row['date'], row['description'], row['into_account_id'], row['out_of_account_id'], row['is_visible'], row['id'])
@@ -45,8 +45,12 @@ def update(transaction):
     run_sql(sql, values)
 
 def get_transaction_up_to_date_and_including(date):
-    sql = "SELECT * FROM transactions WHERE date <= %s"
+    sql = "SELECT * FROM transactions WHERE date <= %s ORDER BY date"
     values = [date]
-    return run_sql(sql, values)
+    returned_results = []
+    for row in run_sql(sql, values):
+        transaction = Transaction(row['amount'], row['date'], row['description'], row['into_account_id'], row['out_of_account_id'], row['is_visible'], row['id'])
+        returned_results.append(transaction)
+    return returned_results
 
 

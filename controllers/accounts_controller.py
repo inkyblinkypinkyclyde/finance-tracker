@@ -35,6 +35,21 @@ def merchants_all():
         accounts=accounts,
         today=today
         )
+
+#show all payees
+@accounts_blueprint.route('/payees/all', methods=['GET'])
+def payees_all():
+    accounts = account_repository.select_all_accounts()
+    merchants = account_repository.select_all_merchants()
+    payees = account_repository.select_all_payees()
+    today = date.today()
+    return render_template(
+        '/accounts/index_payees.html',
+        merchants=merchants,
+        accounts=accounts,
+        payees=payees,
+        today=today
+        )
     
 #add new account
 @accounts_blueprint.route('/accounts/new', methods=['GET'])
@@ -78,6 +93,27 @@ def add_new_merchant():
     account_repository.save(merchant)
     return redirect('/merchants/new')
 
+#add new payee
+@accounts_blueprint.route('/payees/new', methods=['GET'])
+def new_payee():
+    accounts = account_repository.select_all_accounts()
+    merchants = account_repository.select_all_merchants()
+    today = date.today()
+    return render_template(
+        '/accounts/new_payee.html',
+        merchants=merchants,
+        accounts=accounts,
+        today=today
+        )
+
+@accounts_blueprint.route('/payees/new', methods=['POST'])
+def add_new_payee():
+    name = request.form['name']
+    payee = Account(name, 0, 1, False)
+    # breakpoint()
+    account_repository.save(payee)
+    return redirect('/payees/new')
+
 @accounts_blueprint.route('/future', methods=['GET'])
 def view_future_balances():
     accounts = account_repository.select_all_accounts()
@@ -105,7 +141,6 @@ def add_balance_transfer():
         new_account_data_reciever = Account(reciever.name, new_balance_reciever, reciever.credit_limit, reciever.is_account, reciever.id)
         account_repository.update(new_account_data_sender)
         account_repository.update(new_account_data_reciever)
-        breakpoint()
         transaction_repository.save(transaction)
     return redirect('/future')
 

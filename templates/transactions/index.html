@@ -10,12 +10,13 @@
         <tr>
             <th>Date</th>
             <th>Recipient</th>
+            <th>C/D</th>
             <th>Amount</th>
             <th>Description</th>
         </tr>
         {% for transaction in transactions %}
         {% if transaction.out_of_account_id == account.id or transaction.into_account_id == account.id%}
-        <tr>
+        <tr class="transactions">
             <td>{{transaction.date}}</td>
             <td>
                 {%for merchant in all_accounts%}
@@ -24,8 +25,14 @@
                 {%endif%}
                 {%endfor%}
             </td>
+            {% if account.is_payment_in(transaction)%}
+            <td align="right">+</td>
+            {% else %}
+            <td align="right">-</td>
+            {% endif %}
             <td>{{transaction.formatted_amount()}}</td>
             <td>{{transaction.description}}</td>
+
         </tr>
         {%endif%}
         {%endfor%}

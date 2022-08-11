@@ -21,20 +21,27 @@ class Account:
         else:
             return f"£{self.balance/100:.2f}"
     
-    def to_pence(amount):
+    def to_pence(self, amount):
         return amount * 100
 
-    def to_pounds(amount):
+    def to_pounds(self, amount):
         return amount/100
 
     def get_total_of_transactions(self, transactions):
         balance = 0
         for transaction in transactions:
-            balance = balance + transaction['amount'] #### comment this out to run the tests
-            # balance = balance + transaction.amount #### comment this out to run the app
+            balance = balance + transaction.amount
         return balance
 
     def update_balance(self, transactions):
         self.balance = self.balance - self.get_total_of_transactions(transactions)
 
     # def update_all_balances(self, transaction)
+
+    def is_payment_in(self, transaction):
+        if transaction.into_account_id == self.id:
+            return True
+        elif transaction.out_of_account_id == self.id:
+            return False
+        else:
+            return False

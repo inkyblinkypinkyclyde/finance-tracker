@@ -7,6 +7,7 @@ import repositories.transaction_repository as transaction_repository
 def save(account):
     sql = 'INSERT INTO accounts (name, balance, credit_limit, is_account) VALUES (%s, %s, %s, %s) RETURNING *'
     values = [account.name, account.balance, account.credit_limit, account.is_account]
+    # breakpoint()
     results = run_sql(sql, values)
     id = results[0]['id']
     account.id = id
@@ -23,7 +24,7 @@ def select_all():
 
 def select_all_accounts():
     accounts = []
-    sql = "SELECT * FROM accounts WHERE is_account = TRUE"
+    sql = "SELECT * FROM accounts WHERE is_account = TRUE ORDER BY name"
     results = run_sql(sql)
     for row in results:
         account = Account(row['name'], row['balance'], row['credit_limit'], row['is_account'], row['id'])
@@ -32,7 +33,16 @@ def select_all_accounts():
 
 def select_all_merchants():
     accounts = []
-    sql = "SELECT * FROM accounts WHERE is_account = FALSE"
+    sql = "SELECT * FROM accounts WHERE is_account = FALSE AND credit_limit = 0 ORDER BY name"
+    results = run_sql(sql)
+    for row in results:
+        account = Account(row['name'], row['balance'], row['credit_limit'], row['is_account'], row['id'])
+        accounts.append(account)
+    return accounts
+
+def select_all_payees():
+    accounts = []
+    sql = "SELECT * FROM accounts WHERE is_account = FALSE AND credit_limit = 1 ORDER BY name"
     results = run_sql(sql)
     for row in results:
         account = Account(row['name'], row['balance'], row['credit_limit'], row['is_account'], row['id'])
@@ -82,7 +92,7 @@ def return_all_balances_by_date(date):
     for account in accounts:
         transactions_for_each_account = []
         for transaction in all_transactions:
-            if transaction['out_of_account_id'] == account.id:
+            if transaction.out_of_account_id == account.id:
                 transactions_for_each_account.append(transaction)
         account.update_balance(transactions_for_each_account)
     return accounts

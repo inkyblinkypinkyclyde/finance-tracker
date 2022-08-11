@@ -48,6 +48,14 @@
                         <a href="/transactions/new">Add transaction</a>
                     </li>
                 </ul>
+                <ul>
+                    <li>
+                        <a href="/payees/all">All payees</a>
+                    </li>
+                    <li>
+                        <a href="/payees/new">Add payee</a>
+                    </li>
+                </ul>
             </nav>
         </header>
         <div>
@@ -58,6 +66,12 @@
                             <th>Account</th>
                             <th>Balance Today</th>
                         </tr>
+                        {% for account in accounts %}
+                        <tr>
+                            <td>{{account.name}}</td>
+                            <td>{{account.to_string_balance()}}</td>
+                        </tr>
+                        {%endfor%}
                         <form action="/future" method="POST">
                             <tr>
                                 <td>From account:</td>

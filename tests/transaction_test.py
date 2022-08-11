@@ -6,7 +6,7 @@ from models.transaction import Transaction
 class TestTransaction(unittest.TestCase):
     def setUp(self):
         self.transaction0 = Transaction(0, "2022-08-03", "date", 1, 2, True)
-        self.transaction10 = Transaction(0, "2022-08-04", "date", 1, 2, True)
+        self.transaction10 = Transaction(0, "2023-08-04", "date", 1, 2, True)
         self.transaction1 = Transaction(10000, "2022-06-01", "Chairs", 1, 2, True)
         self.transaction2 = Transaction(20, "2022-06-02", "Chairs", 1, 2, True)
         self.transaction3 = Transaction(30, "2022-06-03", "Chairs", 1, 2, True)

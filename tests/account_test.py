@@ -3,14 +3,15 @@ import unittest
 from models.account import Account
 from models.transaction import Transaction
 
+
 class TestAccount(unittest.TestCase):
     def setUp(self):
         self.transaction1 = Transaction(10000, "2022-06-01", "Chairs", 1, 2, True)
-        self.transaction2 = Transaction(20, "2022-06-02", "Chairs", 1, 2, True)
-        self.transaction3 = Transaction(30, "2022-06-03", "Chairs", 1, 2, True)
-        self.account1 = Account("Current Account", 10000, 100000, True)
-        self.account2 = Account("Credit Card", -50000, 100000, True)
-        self.account3 = Account("Savings", 10, 0, True)
+        self.transaction2 = Transaction(20, "2022-06-02", "Chairs", 2, 1, True)
+        self.transaction3 = Transaction(30, "2022-06-03", "Chairs", 1, 3, True)
+        self.account1 = Account("Current Account", 10000, 100000, True, 1)
+        self.account2 = Account("Credit Card", -50000, 100000, True, 2)
+        self.account3 = Account("Savings", 10, 0, True, 3)
 
     def test_account_has_name(self):
         self.assertEqual("Current Account", self.account1.name)
@@ -68,7 +69,7 @@ class TestAccount(unittest.TestCase):
             self.transaction3
             ]
         self.account1.update_balance(transactions)
-        self.assertEqual(20050, self.account1.balance)
+        self.assertEqual(-50, self.account1.balance)
     
     def test_can_return_amount_as_pence(self):
         amount = 1
@@ -77,3 +78,10 @@ class TestAccount(unittest.TestCase):
     def test_can_return_amount_as_pounds(self):
         amount = 100
         self.assertEqual(1, self.account1.to_pounds(amount))
+
+    def test_can_return_true_for_payments_into_account(self):
+        self.assertEqual(True, self.account1.is_payment_in(self.transaction1))
+    
+    def test_can_return_false_for_payments_into_account(self):
+        self.assertEqual(False, self.account2.is_payment_in(self.transaction1))
+    
