@@ -16,7 +16,7 @@
         </tr>
         {% for transaction in transactions %}
         {% if transaction.out_of_account_id == account.id or transaction.into_account_id == account.id%}
-        <tr class="transactions">
+        <tr>
             <td>{{transaction.date}}</td>
             <td>
                 {%for merchant in all_accounts%}

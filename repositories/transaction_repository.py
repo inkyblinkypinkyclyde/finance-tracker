@@ -1,9 +1,10 @@
+from calendar import c
 from db.run_sql import run_sql
 from models.transaction import Transaction
 import repositories.account_repository as account_repository
 
 def save(transaction):
-    sql = "INSERT INTO transactions (amount, date, description, into_account_id, out_of_account_id, is_visible) VALUES (%s, %s, %s, %s, %s, %s) RETURNING *"
+    sql = 'INSERT INTO transactions (amount, date, description, into_account_id, out_of_account_id, is_visible) VALUES (%s, %s, %s, %s, %s, %s) RETURNING *'
     values = [transaction.amount, transaction.date, transaction.description, transaction.into_account_id, transaction.out_of_account_id, transaction.is_visible]
     results = run_sql(sql, values)
     id = results[0]['id']
@@ -48,6 +49,7 @@ def get_transaction_up_to_date_and_including(date):
     sql = "SELECT * FROM transactions WHERE date <= %s ORDER BY date"
     values = [date]
     returned_results = []
+    breakpoint()
     for row in run_sql(sql, values):
         transaction = Transaction(row['amount'], row['date'], row['description'], row['into_account_id'], row['out_of_account_id'], row['is_visible'], row['id'])
         returned_results.append(transaction)

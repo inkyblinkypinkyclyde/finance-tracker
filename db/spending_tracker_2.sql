@@ -15,7 +15,11 @@ CREATE TABLE transactions(
     amount INT,
     date DATE,
     description VARCHAR(255),
-    into_account_id INT REFERENCES accounts(id) ON DELETE CASCADE,
-    out_of_account_id INT REFERENCES accounts(id) ON DELETE CASCADE,
+    -- into_account_id INT,
+    -- out_of_account_id INT,
+    -- into_account_id INT REFERENCES accounts(id) ON DELETE CASCADE,
+    -- out_of_account_id INT REFERENCES accounts(id) ON DELETE CASCADE,
+    into_account_id INT,
+    out_of_account_id INT,
     is_visible BOOLEAN
 );

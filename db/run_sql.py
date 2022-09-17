@@ -12,6 +12,7 @@ def run_sql(sql, values = None):
         conn.commit()
         results = cur.fetchall()
         cur.close()
+        # breakpoint()
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
     finally:
